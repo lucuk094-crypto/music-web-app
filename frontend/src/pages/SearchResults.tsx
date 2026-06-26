@@ -3,7 +3,8 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+// Since backend API is on same domain via Vercel rewrites, use relative path
+const API_URL = '';
 
 interface SearchResultsProps {
   setCurrentSong: (song: { audioUrl: string; metadata: any } | null) => void;
