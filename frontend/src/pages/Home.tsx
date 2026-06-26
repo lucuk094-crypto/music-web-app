@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import LoadingSpinner from '../components/LoadingSpinner';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 interface HomeProps {
   setCurrentSong: (song: { audioUrl: string; metadata: any } | null) => void;
 }
@@ -26,7 +28,7 @@ const Home: React.FC<HomeProps> = ({ setCurrentSong }) => {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.get('http://localhost:5000/api/search?query=trending music 2026');
+        const response = await axios.get(`${API_URL}/api/search?query=trending music 2026`);
         setSongs(response.data.slice(0, 12));
       } catch (err) {
         setError('Failed to load trending music.');
@@ -41,7 +43,7 @@ const Home: React.FC<HomeProps> = ({ setCurrentSong }) => {
 
   const handlePlaySong = async (song: SongResult) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/stream/${song.videoId}`);
+      const response = await axios.get(`${API_URL}/api/stream/${song.videoId}`);
       setCurrentSong({
         audioUrl: response.data.audioUrl,
         metadata: {

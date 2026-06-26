@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import LoadingSpinner from '../components/LoadingSpinner';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 interface SearchResultsProps {
   setCurrentSong: (song: { audioUrl: string; metadata: any } | null) => void;
 }
@@ -34,7 +36,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ setCurrentSong }) => {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.get(`http://localhost:5000/api/search?query=${encodeURIComponent(query)}`);
+        const response = await axios.get(`${API_URL}/api/search?query=${encodeURIComponent(query)}`);
         setResults(response.data);
       } catch (err) {
         setError('Failed to fetch search results.');
@@ -51,7 +53,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ setCurrentSong }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`http://localhost:5000/api/stream/${song.videoId}`);
+      const response = await axios.get(`${API_URL}/api/stream/${song.videoId}`);
       setCurrentSong({
         audioUrl: response.data.audioUrl,
         metadata: {
