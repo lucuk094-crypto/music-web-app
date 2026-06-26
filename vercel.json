@@ -1,8 +1,7 @@
 {
   "functions": {
     "api/index.py": {
-      "includeFiles": "api/**",
-      "runtime": "python3.9"
+      "includeFiles": "api/**"
     }
   },
   "rewrites": [
